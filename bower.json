@@ -1,0 +1,11 @@
+{
+  "name": "website-ptitdam.io",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular": "latest",
+    "bootstrap": "latest",
+    "lodash": "latest",
+    "underscore.string": "latest",
+    "font-awesome": "latest"
+  }
+}
