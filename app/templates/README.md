@@ -1,0 +1,1 @@
+All template used by the current application
