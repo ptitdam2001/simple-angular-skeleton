@@ -1,5 +1,8 @@
 {
   "name": "website-ptitdam.io",
+  "authors": ["Damien Suhard"],
+  "description": "A skeleton for making some Angular applications",
+  "keywords": ["angular", "boilerplate", "framework", "skeleton"],
   "version": "0.0.1",
   "dependencies": {
     "angular": "latest",

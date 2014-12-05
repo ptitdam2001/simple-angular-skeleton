@@ -7,3 +7,7 @@ All steps to initialize the Angular JS application
 
 => bower install  or bower update (if libraries are already installed)
 
+2. install Grunt into the project
+
+=> npm install grunt --save-dev
+
