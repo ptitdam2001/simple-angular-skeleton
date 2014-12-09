@@ -9,6 +9,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 
 	//variables
 	var jsDist = 'dist/application.js';
@@ -85,6 +86,19 @@ module.exports = function(grunt) {
 	      	dest: 'dist/js/application.js'
 	      }
 	    },
+	    uglify: {
+	      options: {
+	        separator: ';'
+	      },
+	      dist: {
+	        src: ['libs/jquery/dist/jquery.js', 'libs/angular/angular.js', 'libs/bootstrap/js/*.js', 'libs/lodash/dist/lodash.js', 'libs/lodash/dist/lodash.underscore.js'],
+	        dest: 'dist/js/libraries.js'
+	      },
+	      app: {
+	      	src: ['app/controllers/*.js', 'app/directives/*.js', 'app/filters/*.js', 'app/app.js'],
+	      	dest: 'dist/js/application.js'
+	      }
+	    },
 	    copy: {
 	        moveHtmlToDist: {
 	        	files: [
@@ -146,5 +160,5 @@ module.exports = function(grunt) {
 	//Grunt Tasks definition
 	grunt.registerTask('default', ['dev', 'watch']) 
 	grunt.registerTask('dev', ['less:compileAsset', 'less:compileBootstrap', 'concat:libs', 'concat:app', 'copy:moveHtmlToDist', 'connect:devserver']);
-	grunt.registerTask('production', ['less:compileAsset', 'less:compileBootstrap'])
+	grunt.registerTask('production', ['less:compileAsset', 'less:compileBootstrap', 'uglify:libs', 'uglify:app', 'copy:moveHtmlToDist'])
 }
