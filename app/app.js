@@ -1,2 +1,2 @@
-/** 
-App.js */
+/** App.js */
+'use strict';

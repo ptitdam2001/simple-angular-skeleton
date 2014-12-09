@@ -2,7 +2,18 @@
 //var util = require('./libs/grunt/utils.js');
 
 module.exports = function(grunt) {
-	
+	// Load the plugins.
+	grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-connect');
+	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-copy');
+
+	//variables
+	var jsDist = 'dist/application.js';
+	var jsSource = ['libs/**/*.js', 'app/**/*.js', 'app/app.js']
+
 	//global beforeEach
 	//util.init();
 
@@ -31,7 +42,7 @@ module.exports = function(grunt) {
 			    expand: true,
 			    cwd: 'less',
 			    src: ['*.less', '!{var,mix}*.less'],
-			    dest: 'assets/css/',
+			    dest: 'dist/css/',
 			    ext: '.css'
 			  }
 		    ]
@@ -42,10 +53,10 @@ module.exports = function(grunt) {
 	          sourceMap: true,
 	          outputSourceFiles: true,
 	          sourceMapURL: 'bootstrap.css.map',
-	          sourceMapFilename: 'assets/css/bootstrap.css.map'
+	          sourceMapFilename: 'dist/css/bootstrap.css.map'
 	        },
 	        src: 'libs/bootstrap/less/bootstrap.less',
-	        dest: 'assets/css/bootstrap.css'
+	        dest: 'dist/css/bootstrap.css'
 	      }
 		},
 		watch: {
@@ -61,12 +72,33 @@ module.exports = function(grunt) {
 		  	tasks: ['less:compileAsset']
 		  }
 		},
+		concat: {
+	      options: {
+	        separator: ';',
+	      },
+	      libs: {
+	        src: ['libs/jquery/dist/jquery.js', 'libs/angular/angular.js', 'libs/bootstrap/js/*.js', 'libs/lodash/dist/lodash.js', 'libs/lodash/dist/lodash.underscore.js'],
+	        dest: 'dist/js/libraries.js'
+	      },
+	      app: {
+	      	src: ['app/controllers/*.js', 'app/directives/*.js', 'app/filters/*.js', 'app/app.js'],
+	      	dest: 'dist/js/application.js'
+	      }
+	    },
+	    copy: {
+	        moveHtmlToDist: {
+	        	files: [
+	        		{src: 'app/index.html', dest: 'dist/index.html'},
+	        		{src: ['app/templates/**'], dest: 'dist/html/'}
+        		]
+	        }
+	    },
 		connect: {
 	      devserver: {
 	        options: {
 	          port: 8000,
 	          hostname: '0.0.0.0',
-	          base: '.',
+	          base: 'dist/',
 	          keepalive: true,
 	          middleware: function(connect, options){
 	            var base = Array.isArray(options.base) ? options.base[options.base.length - 1] : options.base;
@@ -110,14 +142,9 @@ module.exports = function(grunt) {
 	    }
 	});
 
-	// Load the plugins.
-	grunt.loadNpmTasks('grunt-contrib-less');
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-connect');
-
+	
 	//Grunt Tasks definition
 	grunt.registerTask('default', ['dev', 'watch']) 
-	grunt.registerTask('dev', ['less:compileAsset', 'less:compileBootstrap', 'connect:devserver']);
+	grunt.registerTask('dev', ['less:compileAsset', 'less:compileBootstrap', 'concat:libs', 'concat:app', 'copy:moveHtmlToDist', 'connect:devserver']);
 	grunt.registerTask('production', ['less:compileAsset', 'less:compileBootstrap'])
 }
