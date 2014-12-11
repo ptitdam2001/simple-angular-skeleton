@@ -1,20 +1,16 @@
 <!doctype html>
-<html lang="en" ng-app="phonecatApp">
+<html lang="en" ng-app="HelloAngularApp">
 <head>
   <meta charset="utf-8">
-  <title>My HTML File</title>
+  <title>My Angular Application</title>
   <link rel="stylesheet" href="/css/bootstrap.css">
   <link rel="stylesheet" href="/css/main.css">
   <script src="js/libraries.js"></script>
 </head>
-<body ng-controller="PhoneListCtrl">
+<body ng-controller="MainCtrl">
 	<h1>h1. Bootstrap heading</h1>
-  <ol>
-    <li ng-repeat="phone in phones">
-      <span>{{phone.name}}</span>
-      <p>{{phone.snippet}}</p>
-    </li>
-  </ol>
+  <p>{{welcomeSentence}}</p>
+
 
 </body>
 <script type="text/javascript" src="js/application.js"></script>

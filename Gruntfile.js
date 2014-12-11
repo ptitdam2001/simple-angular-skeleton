@@ -82,7 +82,7 @@ module.exports = function(grunt) {
 	        dest: 'dist/js/libraries.js'
 	      },
 	      app: {
-	      	src: ['app/controllers/*.js', 'app/directives/*.js', 'app/filters/*.js', 'app/app.js'],
+	      	src: ['app/*.js', 'app/controllers/*.js', 'app/directives/*.js', 'app/filters/*.js'],
 	      	dest: 'dist/js/application.js'
 	      }
 	    },
