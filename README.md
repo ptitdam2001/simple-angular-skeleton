@@ -23,5 +23,4 @@ TODO
 - Grunt: live compile into the development mode on file change
 - Grunt: check minification of js
 - Grunt: add Jasmine for tests
-- Angular: use ng-view into index.html and initialize mainCtr with its template
 - Angular: implement of plugin (rest library, ...)

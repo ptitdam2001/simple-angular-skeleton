@@ -103,8 +103,24 @@ module.exports = function(grunt) {
 	        moveHtmlToDist: {
 	        	files: [
 	        		{src: 'app/index.html', dest: 'dist/index.html'},
-	        		{src: ['app/templates/**'], dest: 'dist/html/'}
+	        		{
+	        			expand: true, 
+	        			flatten: true, 
+	        			src: ['app/templates/**/*.html'], 
+	        			dest: 'dist/html/'
+	        		}
         		]
+	        },
+	        angular: {
+	        	files: [
+	        		{
+	        			expand: true, 
+	        			flatten: true, 
+	        			src: ['libs/angular-*/angular-*.min.js', 'libs/angular-*/angular-*.js', 'libs/angular-*/angular-*.min.js.map'], 
+	        			dest: 'dist/js', 
+	        			filter: 'isFile'
+	        		}
+	        	]
 	        }
 	    },
 		connect: {
@@ -159,6 +175,7 @@ module.exports = function(grunt) {
 	
 	//Grunt Tasks definition
 	grunt.registerTask('default', ['dev', 'watch']) 
-	grunt.registerTask('dev', ['less:compileAsset', 'less:compileBootstrap', 'concat:libs', 'concat:app', 'copy:moveHtmlToDist', 'connect:devserver']);
+	grunt.registerTask('init-js-libs', ['concat:libs', 'copy:angular'])
+	grunt.registerTask('dev', ['less:compileAsset', 'less:compileBootstrap', 'init-js-libs', 'concat:app', 'copy:moveHtmlToDist', 'connect:devserver']);
 	grunt.registerTask('production', ['less:compileAsset', 'less:compileBootstrap', 'uglify:libs', 'uglify:app', 'copy:moveHtmlToDist'])
 }

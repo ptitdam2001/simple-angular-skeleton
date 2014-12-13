@@ -6,12 +6,10 @@
   <link rel="stylesheet" href="/css/bootstrap.css">
   <link rel="stylesheet" href="/css/main.css">
   <script src="js/libraries.js"></script>
+  <script src="js/angular-route.min.js"></script>
 </head>
-<body ng-controller="MainCtrl">
-	<h1>h1. Bootstrap heading</h1>
-  <p>{{welcomeSentence}}</p>
-
-
+<body> 
+  <content ng-view></content>
 </body>
 <script type="text/javascript" src="js/application.js"></script>
 </html>
